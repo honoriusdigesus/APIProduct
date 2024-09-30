@@ -23,14 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Domain\Entities\" />
-    <Folder Include="Domain\Mappers\" />
-    <Folder Include="Domain\Exceptions\" />
     <Folder Include="Domain\Utlis\" />
-    <Folder Include="Domain\UseCases\" />
-    <Folder Include="Presenter\Controllers\" />
-    <Folder Include="Presenter\Entities\" />
-    <Folder Include="Presenter\Mappers\" />
   </ItemGroup>
 
 </Project>
