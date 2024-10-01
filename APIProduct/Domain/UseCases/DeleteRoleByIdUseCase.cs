@@ -2,6 +2,7 @@
 using APIProduct.Domain.Entities;
 using APIProduct.Domain.Exceptions.Exception;
 using APIProduct.Domain.Mappers;
+using APIProduct.Domain.Utlis;
 using Microsoft.EntityFrameworkCore;
 
 namespace APIProduct.Domain.UseCases
@@ -20,15 +21,15 @@ namespace APIProduct.Domain.UseCases
 
         public async Task<RoleDomain> Execute(int id)
         {
-            if (id <= 0)
+            if (id <= 0 )
             {
-                throw new RoleException("Invalid Id");
+                throw new RoleException("Invalid Id, please verify the information");
             }
             await Task.CompletedTask;
             var role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleId == id);
             if (role == null)
             {
-                throw new RoleException("Role not found");
+                throw new RoleException("Role not found, please verify the information");
             }
             _context.Roles.Remove(role);
             await _context.SaveChangesAsync();

@@ -22,7 +22,7 @@ namespace APIProduct.Domain.UseCases
             var role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleId == roleId);
             if (role == null)
             {
-                throw new RoleException("Role not found");
+                throw new RoleException("Role not found, please verify the information");
             }
             if (role.RoleName == roleDomain.RoleName)
             {

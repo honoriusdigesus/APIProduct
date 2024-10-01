@@ -1,8 +1,8 @@
 ﻿using APIProduct.Domain.Exceptions.ModelException;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace APIProduct.Domain.Exceptions
 {
@@ -14,10 +14,9 @@ namespace APIProduct.Domain.Exceptions
         {
             _exceptionHandlers = new Dictionary<Type, (HttpStatusCode, ErrorResponse)>
         {
-                { typeof(Exception.RoleException), (HttpStatusCode.NotFound, new ErrorResponse(100, "ROLE_INVALID", null)) }, //Si la excepción no está en el diccionario, se crea un ErrorResponse genérico con el mensaje de la excepción.
-                { typeof(DbUpdateException), (HttpStatusCode.Conflict, new ErrorResponse(101, "DUPLICATE_ROLE_NAME",null)) },
-
-
+                { typeof(Exception.RoleException), (HttpStatusCode.NotFound, new ErrorResponse(100, "ROLE_INVALID", null)) },
+                { typeof(DbUpdateException), (HttpStatusCode.Conflict, new ErrorResponse(101, "EXISTING RECORD",null)) },
+                { typeof(Exception.UserException), (HttpStatusCode.NotFound, new ErrorResponse(102, "USER_INVALID", null)) },
 
         };
         }

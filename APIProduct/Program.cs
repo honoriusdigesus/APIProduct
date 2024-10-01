@@ -2,6 +2,7 @@ using APIProduct.Data.Context;
 using APIProduct.Domain.Exceptions;
 using APIProduct.Domain.Mappers;
 using APIProduct.Domain.UseCases;
+using APIProduct.Domain.Utlis;
 using APIProduct.Presenter.Mappers;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,13 +44,22 @@ try
     builder.Services.AddScoped<UpdateRoleUseCase>();
     builder.Services.AddScoped<DeleteRoleByIdUseCase>();
 
+    builder.Services.AddScoped<CreateUserUseCase>();
+    builder.Services.AddScoped<GetAllUserUseCase>();
+    builder.Services.AddScoped<GetUserByIdentityDocumentUseCase>();
+    builder.Services.AddScoped<UpdateUserByIdentityDocumentUseCase>();
+    builder.Services.AddScoped<DeleteUserByIdentityDocumentUseCase>();
+
 
     //Injects mappers
     builder.Services.AddScoped<RoleMapperPresenter>();
     builder.Services.AddScoped<RoleMapperDomain>();
+    builder.Services.AddScoped<UserMapperPresenter>();
+    builder.Services.AddScoped<UserMapperDomain>();
 
 
     //Injects utils
+    builder.Services.AddScoped<MyValidator>();
 
 }
 catch (Exception ex)
