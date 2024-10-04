@@ -46,7 +46,7 @@ namespace APIProduct.Domain.Utlis
             //Create details of the token
             var jwtConfig = new JwtSecurityToken(
                 claims: userClaims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: credentials
                 );
 

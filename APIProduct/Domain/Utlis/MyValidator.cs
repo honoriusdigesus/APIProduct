@@ -7,6 +7,8 @@ namespace APIProduct.Domain.Utlis
         private static readonly Regex _regexNumber = new Regex(@"^(?!0)\d{6,10}$");
         private static readonly Regex _regexLetters = new Regex(@"^[A-Za-z]{3,20}$");
         private static readonly Regex _regexPassword = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}$");
+        private static readonly Regex _regexDecimal = new Regex(@"^[1-9]\d{5,9}(\.\d+)?$");
+
 
 
         public bool IsEmail(string email)
@@ -33,7 +35,7 @@ namespace APIProduct.Domain.Utlis
             return _regexLetters.IsMatch(input); // Retorna verdadero si la cadena cumple con el patrón
         }
 
-        internal bool IsPassword(string password)
+        public bool IsPassword(string password)
         {
             if (string.IsNullOrEmpty(password))
             {

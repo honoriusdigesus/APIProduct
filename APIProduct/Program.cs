@@ -53,6 +53,12 @@ try
 
     builder.Services.AddScoped<LoginUseCase>();
 
+    builder.Services.AddScoped<CreateProductUseCase>();
+    builder.Services.AddScoped<GetAllProductsUseCase>();
+    builder.Services.AddScoped<GetProductByNameUseCase>();
+    builder.Services.AddScoped<UpdateProductByNameUseCase>();
+    builder.Services.AddScoped<DeleteProductByNameUseCase>();
+
 
     //Injects mappers
     builder.Services.AddScoped<RoleMapperPresenter>();
@@ -60,6 +66,8 @@ try
     builder.Services.AddScoped<UserMapperPresenter>();
     builder.Services.AddScoped<UserMapperDomain>();
     builder.Services.AddScoped<LoginMapperPresenter>();
+    builder.Services.AddScoped<ProductMapperPresenter>();
+    builder.Services.AddScoped<ProductMapperDomain>();
 
 
     //Injects utils
@@ -106,6 +114,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+//Use the authentication
+app.UseAuthentication();
 
 app.MapControllers();
 

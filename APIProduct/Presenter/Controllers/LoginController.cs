@@ -1,6 +1,8 @@
 ﻿using APIProduct.Domain.UseCases;
 using APIProduct.Presenter.Entities;
 using APIProduct.Presenter.Mappers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
