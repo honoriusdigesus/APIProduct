@@ -30,7 +30,7 @@ namespace APIProduct.Domain.UseCases
                 throw new ProductException("Price is required, please verify the information");
             }
             await Task.CompletedTask;
-            var product = _productMapperDomain.fromDomainToData(productDomain);
+            Data.Models.Product product = _productMapperDomain.fromDomainToData(productDomain);
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
             return _productMapperDomain.fromDataToDomain(product);

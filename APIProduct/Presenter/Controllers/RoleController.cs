@@ -38,8 +38,8 @@ namespace APIProduct.Presenter.Controllers
         [Route("Create")]
         public async Task<IActionResult> CreateRole(RolePresenter rolePresenter)
         {
-            var roleDomain = _roleMapperPresenter.PresenterToDomain(rolePresenter);
-            var role = await _createRoleUseCase.Execute(roleDomain);
+            Domain.Entities.RoleDomain roleDomain = _roleMapperPresenter.PresenterToDomain(rolePresenter);
+            Domain.Entities.RoleDomain role = await _createRoleUseCase.Execute(roleDomain);
             return Ok(_roleMapperPresenter.DomainToPresenter(role));
         }
 
@@ -47,7 +47,7 @@ namespace APIProduct.Presenter.Controllers
         [Route("All")]
         public async Task<IActionResult> GetAllRoles()
         {
-            var roles = await _getAllRolesUseCase.Execute();
+            List<Domain.Entities.RoleDomain> roles = await _getAllRolesUseCase.Execute();
             return Ok(roles.Select(role => _roleMapperPresenter.DomainToPresenter(role)));
         }
 
@@ -55,7 +55,7 @@ namespace APIProduct.Presenter.Controllers
         [Route("Get/{id}")]
         public async Task<IActionResult> GetRoleById(int id)
         {
-            var role = await _getRoleByIdUseCase.Execute(id);
+            Domain.Entities.RoleDomain role = await _getRoleByIdUseCase.Execute(id);
             return Ok(_roleMapperPresenter.DomainToPresenter(role));
         }
 
@@ -64,8 +64,8 @@ namespace APIProduct.Presenter.Controllers
         [Route("Update/{id}")]
         public async Task<IActionResult> UpdateRole(RolePresenter rolePresenter, int id)
         {
-            var roleDomain = _roleMapperPresenter.PresenterToDomain(rolePresenter);
-            var role = await _updateRoleUseCase.Execute(roleDomain, id);
+            Domain.Entities.RoleDomain roleDomain = _roleMapperPresenter.PresenterToDomain(rolePresenter);
+            Domain.Entities.RoleDomain role = await _updateRoleUseCase.Execute(roleDomain, id);
             return Ok(_roleMapperPresenter.DomainToPresenter(role));
         }
 
@@ -73,7 +73,7 @@ namespace APIProduct.Presenter.Controllers
         [Route("Delete/{id}")]
         public async Task<IActionResult> DeleteRole(int id)
         {
-            var role = await _deleteRoleByIdUseCase.Execute(id);
+            Domain.Entities.RoleDomain role = await _deleteRoleByIdUseCase.Execute(id);
             return Ok(_roleMapperPresenter.DomainToPresenter(role));
         }
     }

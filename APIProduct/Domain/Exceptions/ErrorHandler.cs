@@ -23,7 +23,7 @@ namespace APIProduct.Domain.Exceptions
         }
         public override void OnException(ExceptionContext context)
         {
-            if (_exceptionHandlers.TryGetValue(context.Exception.GetType(), out var handler))
+            if (_exceptionHandlers.TryGetValue(context.Exception.GetType(), out (HttpStatusCode StatusCode, ErrorResponse ErrorResponse) handler))
             {
                 handler.ErrorResponse.Message = context.Exception.Message;
                 context.HttpContext.Response.StatusCode = (int)handler.StatusCode;
@@ -31,7 +31,7 @@ namespace APIProduct.Domain.Exceptions
             }
             else
             {
-                var genericErrorResponse = new ErrorResponse(500, "INTERNAL_SERVER_ERROR", "An unexpected error occurred.");
+                ErrorResponse genericErrorResponse = new ErrorResponse(500, "INTERNAL_SERVER_ERROR", "An unexpected error occurred.");
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Result = new JsonResult(genericErrorResponse);
             }

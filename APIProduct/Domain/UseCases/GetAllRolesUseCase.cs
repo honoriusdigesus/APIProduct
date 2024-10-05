@@ -20,7 +20,7 @@ namespace APIProduct.Domain.UseCases
         public async Task<List<RoleDomain>> Execute()
         {
             await Task.CompletedTask;
-            var roles = await _context.Roles.ToListAsync();
+            List<Data.Models.Role> roles = await _context.Roles.ToListAsync();
             //Validamos si la lista de roles esta vacia
             if (roles.Count == 0)
             {

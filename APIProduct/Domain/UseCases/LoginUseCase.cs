@@ -35,7 +35,7 @@ namespace APIProduct.Domain.UseCases
                 throw new UserException("Valid password required, please verify information.");
             }
             await Task.CompletedTask;
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginDomain.Email && u.PasswordHash == _utilsJwt.encryptTokenSHA256(loginDomain.Password));
+            Data.Models.User? user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginDomain.Email && u.PasswordHash == _utilsJwt.encryptTokenSHA256(loginDomain.Password));
             if (user == null)
             {
                 throw new UserException("User not found, please verify the information");

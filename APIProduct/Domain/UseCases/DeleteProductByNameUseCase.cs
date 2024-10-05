@@ -25,7 +25,7 @@ namespace APIProduct.Domain.UseCases
                 throw new ProductException("ProductName is required, please verify the information");
             }
             await Task.CompletedTask;
-            var productToDelete = await _context.Products.FirstOrDefaultAsync(product => product.ProductName == nameProduct);
+            Data.Models.Product? productToDelete = await _context.Products.FirstOrDefaultAsync(product => product.ProductName == nameProduct);
             if (productToDelete == null)
             {
                 throw new ProductException("Product not found, please verify the information");

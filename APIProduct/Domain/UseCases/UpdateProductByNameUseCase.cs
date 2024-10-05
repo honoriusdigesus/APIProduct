@@ -31,8 +31,8 @@ namespace APIProduct.Domain.UseCases
                 throw new ProductException("Price is required, please verify the information");
             }
             await Task.CompletedTask;
-            var product = _productMapperDomain.fromDomainToData(newProductDomain);
-            var productToUpdate = await _context.Products.FirstOrDefaultAsync(product => product.ProductName == nameProductOld);
+            Data.Models.Product product = _productMapperDomain.fromDomainToData(newProductDomain);
+            Data.Models.Product? productToUpdate = await _context.Products.FirstOrDefaultAsync(product => product.ProductName == nameProductOld);
             if (productToUpdate == null)
             {
                 throw new ProductException("Product not found, please verify the information");

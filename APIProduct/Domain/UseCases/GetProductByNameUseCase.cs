@@ -25,7 +25,7 @@ namespace APIProduct.Domain.UseCases
             {
                 throw new ProductException("ProductName is required, please verify the information");
             }
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductName == productName);
+            Data.Models.Product? product = await _context.Products.FirstOrDefaultAsync(p => p.ProductName == productName);
             if (product == null)
             {
                 throw new ProductException("Product not found");

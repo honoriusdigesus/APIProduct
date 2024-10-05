@@ -28,7 +28,7 @@ namespace APIProduct.Domain.UseCases
                 throw new RoleException("RoleName is required, please verify the information");
             }
             await Task.CompletedTask;
-            var role = _roleMapperDomain.fromDomainToData(roleDomain);
+            Data.Models.Role role = _roleMapperDomain.fromDomainToData(roleDomain);
             await _context.Roles.AddAsync(role);
             await _context.SaveChangesAsync();
             return _roleMapperDomain.fromDataToDomain(role);

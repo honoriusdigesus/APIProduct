@@ -47,7 +47,7 @@ namespace APIProduct.Domain.UseCases
                 throw new UserException("Invalid name, it must have a minimum of 3 characters and a maximum of 20, please verify the information");
             }
 
-            var role = await _getRoleByIdUseCase.Execute(userDomain.RoleId);
+            RoleDomain role = await _getRoleByIdUseCase.Execute(userDomain.RoleId);
 
 
             if (role == null) {
@@ -56,7 +56,7 @@ namespace APIProduct.Domain.UseCases
 
             userDomain.RoleId = role.RoleId;
             userDomain.PasswordHash = _utilsJwt.encryptTokenSHA256(userDomain.PasswordHash);
-            var user = _userMapperDomain.fromDomainToData(userDomain);
+            Data.Models.User user = _userMapperDomain.fromDomainToData(userDomain);
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             return _userMapperDomain.fromDataToDomain(user);

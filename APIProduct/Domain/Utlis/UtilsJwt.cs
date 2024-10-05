@@ -35,22 +35,72 @@ namespace APIProduct.Domain.Utlis
         //Generated JWT
         public string generateJwt(UserDomain user)
         {
-            var userClaims = new[] {
+            Claim[] userClaims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                 new Claim(ClaimTypes.Email, user.Email!)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+            SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             //Create details of the token
-            var jwtConfig = new JwtSecurityToken(
+            JwtSecurityToken jwtConfig = new JwtSecurityToken(
                 claims: userClaims,
                 expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: credentials
                 );
 
             return new JwtSecurityTokenHandler().WriteToken(jwtConfig);
+        }
+
+
+        // Validate JWT
+        public bool ValidateJwt(string token)
+        {
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            byte[] key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Get User from JWT
+        public UserDomain GetUserFromToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+            var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ClockSkew = TimeSpan.Zero
+            }, out SecurityToken validatedToken);
+
+            var jwtToken = (JwtSecurityToken)validatedToken;
+            var userId = int.Parse(jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            var email = jwtToken.Claims.First(x => x.Type == ClaimTypes.Email).Value;
+
+            return new UserDomain
+            {
+                UserId = userId,
+                Email = email
+            };
         }
     }
 }

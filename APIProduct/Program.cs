@@ -7,7 +7,7 @@ using APIProduct.Presenter.Mappers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers(options =>
@@ -52,6 +52,7 @@ try
     builder.Services.AddScoped<DeleteUserByIdentityDocumentUseCase>();
 
     builder.Services.AddScoped<LoginUseCase>();
+    builder.Services.AddScoped<ValidateTokenUseCase>();
 
     builder.Services.AddScoped<CreateProductUseCase>();
     builder.Services.AddScoped<GetAllProductsUseCase>();
@@ -79,6 +80,16 @@ catch (Exception ex)
     Console.WriteLine(ex.Message);
 }
 
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddPolicy("NewPolicy",
+            app => app.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+    }
+    );
+
 
 // Inject the UtilsJwt and configure the authentication
 builder.Services.AddSingleton<UtilsJwt>();
@@ -104,7 +115,7 @@ builder.Services.AddAuthentication(config => {
 //*************************************************************************************************************************************
 
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -112,6 +123,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//Use the cors
+app.UseCors("NewPolicy");
 
 app.UseAuthorization();
 //Use the authentication

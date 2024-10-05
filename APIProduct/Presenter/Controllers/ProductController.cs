@@ -41,8 +41,8 @@ namespace APIProduct.Presenter.Controllers
         [Route("Create")]
         public async Task<IActionResult> CreateProduct(ProductPresenter productPresenter)
         {
-            var productDomain = _productMapperPresenter.fromPresenterToDomain(productPresenter);
-            var product = await _createProductUseCase.Execute(productDomain);
+            Domain.Entities.ProductDomain productDomain = _productMapperPresenter.fromPresenterToDomain(productPresenter);
+            Domain.Entities.ProductDomain product = await _createProductUseCase.Execute(productDomain);
             return Ok(_productMapperPresenter.fromDomainToPresenter(product));
         }
 
@@ -50,7 +50,7 @@ namespace APIProduct.Presenter.Controllers
         [Route("All")]
         public async Task<IActionResult> GetAllProducts()
         {
-            var products = await _getAllProductsUseCase.Execute();
+            List<Domain.Entities.ProductDomain> products = await _getAllProductsUseCase.Execute();
             return Ok(products.Select(product => _productMapperPresenter.fromDomainToPresenter(product)));
         }
 
@@ -59,7 +59,7 @@ namespace APIProduct.Presenter.Controllers
         [Route("Get/{NameProduct}")]
         public async Task<IActionResult> GetProductByName(string NameProduct)
         {
-            var product = await _getProductByNameUseCase.Execute(NameProduct);
+            Domain.Entities.ProductDomain product = await _getProductByNameUseCase.Execute(NameProduct);
             return Ok(_productMapperPresenter.fromDomainToPresenter(product));
         }
 
@@ -67,8 +67,8 @@ namespace APIProduct.Presenter.Controllers
         [Route("Update/{NameProduct}")]
         public async Task<IActionResult> UpdateProductByName(ProductPresenter productPresenter, string nameProduct )
         {
-            var productDomain = _productMapperPresenter.fromPresenterToDomain(productPresenter);
-            var product = await _updateProductByNameUseCase.Execute( productDomain, nameProduct);
+            Domain.Entities.ProductDomain productDomain = _productMapperPresenter.fromPresenterToDomain(productPresenter);
+            Domain.Entities.ProductDomain product = await _updateProductByNameUseCase.Execute( productDomain, nameProduct);
             return Ok(_productMapperPresenter.fromDomainToPresenter(product));
         }
 
@@ -76,7 +76,7 @@ namespace APIProduct.Presenter.Controllers
         [Route("Delete/{NameProduct}")]
         public async Task<IActionResult> DeleteProductByName(string NameProduct)
         {
-            var product = await _deleteProductByNameUseCase.Execute(NameProduct);
+            Domain.Entities.ProductDomain product = await _deleteProductByNameUseCase.Execute(NameProduct);
             return Ok(_productMapperPresenter.fromDomainToPresenter(product));
         }
     }

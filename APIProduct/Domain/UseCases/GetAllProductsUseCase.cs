@@ -19,7 +19,7 @@ namespace APIProduct.Domain.UseCases
 
         public async Task<List<ProductDomain>> Execute()
         {
-            var products = await _context.Products.ToListAsync();
+            List<Data.Models.Product> products = await _context.Products.ToListAsync();
             return products.Select(product => _productMapperDomain.fromDataToDomain(product)).ToList();
         }
     }

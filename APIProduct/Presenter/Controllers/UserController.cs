@@ -37,8 +37,8 @@ namespace APIProduct.Presenter.Controllers
         [Route("Create")]
         public async Task<IActionResult> CreateUser(UserPresenter userPresenter)
         {
-            var userDomain = _userMapperPresenter.fromPresenterToDomain(userPresenter);
-            var user = await _createUserUseCase.Execute(userDomain);
+            Domain.Entities.UserDomain userDomain = _userMapperPresenter.fromPresenterToDomain(userPresenter);
+            Domain.Entities.UserDomain user = await _createUserUseCase.Execute(userDomain);
             return Ok(_userMapperPresenter.fromDomainToPresenter(user));
 
         }
@@ -47,7 +47,7 @@ namespace APIProduct.Presenter.Controllers
         [Route("All")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _getAllUsersUseCase.Execute();
+            List<Domain.Entities.UserDomain> users = await _getAllUsersUseCase.Execute();
             return Ok(users.Select(user => _userMapperPresenter.fromDomainToPresenter(user)));
         }
 
@@ -55,7 +55,7 @@ namespace APIProduct.Presenter.Controllers
         [Route("Get/{IdentityDocument}")]
         public async Task<IActionResult> GetUserByIdentityDocument(string IdentityDocument)
         {
-            var user = await _getUserByIdentityDocumentUseCase.Execute(IdentityDocument);
+            Domain.Entities.UserDomain user = await _getUserByIdentityDocumentUseCase.Execute(IdentityDocument);
             return Ok(_userMapperPresenter.fromDomainToPresenter(user));
         }
 
@@ -63,8 +63,8 @@ namespace APIProduct.Presenter.Controllers
         [Route("Update/{IdentityDocument}")]
         public async Task<IActionResult> UpdateUserByIdentityDocument(string IdentityDocument, UserPresenter userPresenter)
         {
-            var userDomain = _userMapperPresenter.fromPresenterToDomain(userPresenter);
-            var user = await _updateUserByIdentityDocumentUseCase.Execute(IdentityDocument, userDomain);
+            Domain.Entities.UserDomain userDomain = _userMapperPresenter.fromPresenterToDomain(userPresenter);
+            Domain.Entities.UserDomain user = await _updateUserByIdentityDocumentUseCase.Execute(IdentityDocument, userDomain);
             return Ok(_userMapperPresenter.fromDomainToPresenter(user));
         }
 
@@ -72,7 +72,7 @@ namespace APIProduct.Presenter.Controllers
         [Route("Delete/{IdentityDocument}")]
         public async Task<IActionResult> DeleteUserByIdentityDocument(string IdentityDocument)
         {
-            var user = await _deleteUserByIdentityDocumentUseCase.Execute(IdentityDocument);
+            Domain.Entities.UserDomain user = await _deleteUserByIdentityDocumentUseCase.Execute(IdentityDocument);
             return Ok(_userMapperPresenter.fromDomainToPresenter(user));
         }
     }

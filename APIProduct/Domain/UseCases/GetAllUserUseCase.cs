@@ -22,7 +22,7 @@ namespace APIProduct.Domain.UseCases
         public async Task<List<UserDomain>> Execute()
         {
             await Task.CompletedTask;
-            var users = await _context.Users.ToListAsync();
+            List<Data.Models.User> users = await _context.Users.ToListAsync();
             //Validamos si la lista de roles esta vacia
             if (users.Count == 0)
             {

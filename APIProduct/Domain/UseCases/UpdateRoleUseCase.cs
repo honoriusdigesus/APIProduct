@@ -19,7 +19,7 @@ namespace APIProduct.Domain.UseCases
 
         public async Task<RoleDomain> Execute(RoleDomain roleDomain, int roleId)
         {
-            var role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleId == roleId);
+            Data.Models.Role? role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleId == roleId);
             if (role == null)
             {
                 throw new RoleException("Role not found, please verify the information");

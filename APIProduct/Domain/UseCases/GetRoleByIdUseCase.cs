@@ -23,7 +23,7 @@ namespace APIProduct.Domain.UseCases
                 throw new RoleException("Invalid Id");
             }
             await Task.CompletedTask;
-            var role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleId == id);
+            Data.Models.Role? role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleId == id);
             if (role == null)
             {
                 throw new RoleException("Role not found");

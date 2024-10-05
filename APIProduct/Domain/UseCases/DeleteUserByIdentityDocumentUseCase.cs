@@ -28,7 +28,7 @@ namespace APIProduct.Domain.UseCases
                 throw new UserException("Valid ID required, please verify information.");
             }
             await Task.CompletedTask;
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.IdentityDocument == identityDocument);
+            Data.Models.User? user = await _context.Users.FirstOrDefaultAsync(u => u.IdentityDocument == identityDocument);
             if (user == null)
             {
                 throw new UserException("User not found, please verify the information");
