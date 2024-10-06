@@ -34,11 +34,17 @@ namespace APIProduct.Presenter.Controllers
 
         [HttpPost]
         [Route("ValidateToken")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult ValidateToken()
         {
-            string token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            return _validateTokenUseCase.Execute(token);
+            if (!Request.Headers.TryGetValue("Authorization", out var token))
+            {
+                return BadRequest("Authorization header is missing");
+            }
+
+            // Remove "Bearer " prefix if present
+            var tokenValue = token.ToString().StartsWith("Bearer") ? token.ToString().Substring(7) : token.ToString();
+
+            return _validateTokenUseCase.Execute(tokenValue);
         }
 
     }

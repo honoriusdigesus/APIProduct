@@ -10,7 +10,7 @@ namespace APIProduct.Presenter.Entities
         public string Email { get; set; } = null!;
         public string PasswordHash { get; set; } = null!;
         public string IdentityDocument { get; set; } = null!;
-        public int RoleId { get; set; }
+        public int RoleId { get; set; } = 1;
         public DateTime? CreatedAt { get; set; }
     }
 }
