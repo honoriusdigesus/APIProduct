@@ -1,7 +1,6 @@
 ﻿using APIProduct.Domain.UseCases;
 using APIProduct.Presenter.Entities;
 using APIProduct.Presenter.Mappers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIProduct.Presenter.Controllers
@@ -17,9 +16,9 @@ namespace APIProduct.Presenter.Controllers
         private readonly UpdateUserByIdentityDocumentUseCase _updateUserByIdentityDocumentUseCase;
         private readonly DeleteUserByIdentityDocumentUseCase _deleteUserByIdentityDocumentUseCase;
 
-        public UserController(CreateUserUseCase createUserUseCase, 
-            UserMapperPresenter userMapperPresenter, 
-            GetAllUserUseCase getAllUsersUseCase, 
+        public UserController(CreateUserUseCase createUserUseCase,
+            UserMapperPresenter userMapperPresenter,
+            GetAllUserUseCase getAllUsersUseCase,
             GetUserByIdentityDocumentUseCase getUserByIdentityDocumentUseCase,
             UpdateUserByIdentityDocumentUseCase updateUserByIdentityDocumentUseCase,
             DeleteUserByIdentityDocumentUseCase deleteUserByIdentityDocumentUseCase

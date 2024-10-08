@@ -11,6 +11,6 @@ namespace APIProduct.Presenter.Entities
         public string PasswordHash { get; set; } = null!;
         public string IdentityDocument { get; set; } = null!;
         public int RoleId { get; set; } = 1;
-        public DateTime? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
     }
 }
